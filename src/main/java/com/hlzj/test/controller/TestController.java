@@ -18,7 +18,6 @@ public class TestController
 
     @RequestMapping("test")
     public String testPath(){
-
         testService.test();
         return "index";
     }
