@@ -14,4 +14,6 @@ public interface TemperatureMapper {
     int updateByPrimaryKeySelective(Temperature record);
 
     int updateByPrimaryKey(Temperature record);
+
+    Temperature selectLatest();
 }
