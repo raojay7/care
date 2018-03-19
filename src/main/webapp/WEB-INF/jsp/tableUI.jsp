@@ -14,11 +14,53 @@
     <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
     <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
     <script src="https://img.hcharts.cn/highcharts/themes/dark-unica.js"></script>
+    <style type="text/css">
+        #circle1{
+            position: absolute;
+            top:5px;
+            left: 125px;
+            z-index: 10;
+            width:20px;
+            height:20px;
+            border-radius: 50%;
+            background-color: #5FB878;
+        }
+        #circle2{
+            position: absolute;
+            top:5px;
+            left: 705px;
+            z-index: 10;
+            width:20px;
+            height:20px;
+            border-radius: 50%;
+            background-color: #5FB878;
+        }
+        #circle3{
+            position: absolute;
+            top:355px;
+            left: 125px;
+            z-index: 10;
+            width:20px;
+            height:20px;
+            border-radius: 50%;
+            background-color: #5FB878;
+        }
+        #circle4{
+            position: absolute;
+            top:355px;
+            left: 705px;
+            z-index: 10;
+            width:20px;
+            height:20px;
+            border-radius: 50%;
+            background-color: #5FB878;
+        }
+    </style>
 </head>
 <body>
 
 
-<fieldset class="layui-elem-field layui-field-title site-demo-button" style="margin-top: 30px;">
+<%--<fieldset class="layui-elem-field layui-field-title site-demo-button" style="margin-top: 30px;">
     <legend>功能点击</legend>
 </fieldset>
 
@@ -26,9 +68,21 @@
     <blockquote class="layui-elem-quote layui-quote-nm">
         Tips：为了更清晰演示，每触发下述一个例子之前，都会关闭所有已经演示的层
     </blockquote>
+</div>--%>
+<div id="circle1"></div>
+<div id="circle2"></div>
+<div id="circle3"></div>
+<div id="circle4"></div>
+<div>
+<div id="container1" style="width:500px;height:300px;float:left;padding-right: 80px;padding-bottom: 50px;padding-left: 120px"></div>
+<div id="container2" style="width:500px;height:300px;float:left"></div>
 </div>
-
-<div id="container" style="min-width:400px;height:400px"></div>
+<div style="clear: both;"></div>
+<div>
+<div id="container3" style="width:500px;height:300px;float:left;padding-right: 80px;padding-left: 120px"></div>
+<div id="container4" style="width:500px;height:300px;float:left"></div>
+</div>
+<div style="clear: both;"></div>
 <script>
     Highcharts.setOptions({
         global: {
@@ -39,7 +93,95 @@
         var points = chart.series[0].points;
         chart.tooltip.refresh(points[points.length -1]);
     }
-    $('#container').highcharts({
+    $('#container1').highcharts({
+        credits: {
+            enabled:false
+        },
+        chart: {
+            type: 'spline',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+            events: {
+                load: function () {
+                    // set up the updating of the chart each second
+                    var series = this.series[0],
+                        chart = this;
+                    setInterval(function () {
+                        var page = '../Beat';
+                        $.post(
+                            page,
+                            function(result){
+                                //alert(result.charCodeAt());
+                                var x = (new Date()).getTime(), // current time
+                                    y = parseFloat(result)//这个便是心跳数据
+                                /*if(y == 37.6){
+                                    $("#circle1").css("background-color","#FF0000");
+                                }else{
+
+                                }*/
+                                series.addPoint([x, y], true, true);
+                                activeLastPointToolip(chart)
+                            }
+                        )
+                    }, 1000);
+                }
+            }
+        },
+        title: {
+            text: '实时温度数据'
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 0,
+            gridLineWidth: 1
+        },
+        yAxis: {
+            title: {
+                text: '值'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#FFFFFF'
+            }],
+            gridLineWidth: 1
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                    Highcharts.numberFormat(this.y, 2);
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        series: [{
+            name: '温度',
+            data: (function () {
+                // generate an array of random data
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
+                for (i = -10; i <= 0; i += 1) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: 0
+                    });
+                }
+                return data;
+            }())
+        }]
+    }, function(c) {
+        activeLastPointToolip(c)
+    });
+    $('#container2').highcharts({
+        credits: {
+            enabled:false
+        },
         chart: {
             type: 'spline',
             animation: Highcharts.svg, // don't animate in old IE
@@ -111,7 +253,170 @@
                     });
                 }
                 return data;
-            }())
+            }()),
+            color:'#7CCD7C'
+        }]
+    }, function(c) {
+        activeLastPointToolip(c)
+    });
+    $('#container3').highcharts({
+        credits: {
+            enabled:false
+        },
+        chart: {
+            type: 'spline',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+            events: {
+                load: function () {
+                    // set up the updating of the chart each second
+                    var series = this.series[0],
+                        chart = this;
+                    setInterval(function () {
+                        var page = '../Beat';
+                        $.post(
+                            page,
+                            function(result){
+                                //alert(result.charCodeAt());
+                                var x = (new Date()).getTime(), // current time
+                                    y = parseFloat(result)//这个便是心跳数据
+                                series.addPoint([x, y], true, true);
+                                activeLastPointToolip(chart)
+                            }
+                        )
+                    }, 1000);
+                }
+            }
+        },
+        title: {
+            text: '实时温度数据'
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 0,
+            gridLineWidth: 1
+        },
+        yAxis: {
+            title: {
+                text: '值'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#FFFFFF'
+            }],
+            gridLineWidth: 1
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                    Highcharts.numberFormat(this.y, 2);
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        series: [{
+            name: '温度',
+            data: (function () {
+                // generate an array of random data
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
+                for (i = -10; i <= 0; i += 1) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: 0
+                    });
+                }
+                return data;
+            }()),
+            color:'#CD8500'
+        }]
+    }, function(c) {
+        activeLastPointToolip(c)
+    });
+    $('#container4').highcharts({
+        credits: {
+            enabled:false
+        },
+        chart: {
+            type: 'spline',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+            events: {
+                load: function () {
+                    // set up the updating of the chart each second
+                    var series = this.series[0],
+                        chart = this;
+                    setInterval(function () {
+                        var page = '../Beat';
+                        $.post(
+                            page,
+                            function(result){
+                                //alert(result.charCodeAt());
+                                var x = (new Date()).getTime(), // current time
+                                    y = parseFloat(result)//这个便是心跳数据
+                                series.addPoint([x, y], true, true);
+                                activeLastPointToolip(chart)
+                            }
+                        )
+                    }, 1000);
+                }
+            }
+        },
+        title: {
+            text: '实时温度数据'
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 0,
+            gridLineWidth: 1
+        },
+        yAxis: {
+            title: {
+                text: '值'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#FFFFFF'
+            }],
+            gridLineWidth: 1
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                    Highcharts.numberFormat(this.y, 2);
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        series: [{
+            name: '温度',
+            data: (function () {
+                // generate an array of random data
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
+                for (i = -10; i <= 0; i += 1) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: 0
+                    });
+                }
+                return data;
+            }()),
+            color:'#8968CD'
         }]
     }, function(c) {
         activeLastPointToolip(c)
