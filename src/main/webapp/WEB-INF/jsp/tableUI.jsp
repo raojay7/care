@@ -9,6 +9,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../layui-v2.2.5/layui/css/layui.css" media="all">
     <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <script src="https://img.hcharts.cn/jquery/jquery-1.8.3.min.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/highcharts.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
+    <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
+    <script src="https://img.hcharts.cn/highcharts/themes/dark-unica.js"></script>
 </head>
 <body>
 
@@ -23,13 +28,102 @@
     </blockquote>
 </div>
 
+<div id="container" style="min-width:400px;height:400px"></div>
+<script>
+    Highcharts.setOptions({
+        global: {
+            useUTC: false
+        }
+    });
+    function activeLastPointToolip(chart) {
+        var points = chart.series[0].points;
+        chart.tooltip.refresh(points[points.length -1]);
+    }
+    $('#container').highcharts({
+        chart: {
+            type: 'spline',
+            animation: Highcharts.svg, // don't animate in old IE
+            marginRight: 10,
+            events: {
+                load: function () {
+                    // set up the updating of the chart each second
+                    var series = this.series[0],
+                        chart = this;
+                    setInterval(function () {
+                        var page = '../Beat';
+                        $.post(
+                            page,
+                            function(result){
+                                //alert(result.charCodeAt());
+                                var x = (new Date()).getTime(), // current time
+                                    y = parseFloat(result)//这个便是心跳数据
+                                series.addPoint([x, y], true, true);
+                                activeLastPointToolip(chart)
+                            }
+                        )
+                    }, 1000);
+                }
+            }
+        },
+        title: {
+            text: '实时温度数据'
+        },
+        xAxis: {
+            type: 'datetime',
+            tickPixelInterval: 0,
+            gridLineWidth: 1
+        },
+        yAxis: {
+            title: {
+                text: '值'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#FFFFFF'
+            }],
+            gridLineWidth: 1
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) + '<br/>' +
+                    Highcharts.numberFormat(this.y, 2);
+            }
+        },
+        legend: {
+            enabled: false
+        },
+        exporting: {
+            enabled: false
+        },
+        series: [{
+            name: '温度',
+            data: (function () {
+                // generate an array of random data
+                var data = [],
+                    time = (new Date()).getTime(),
+                    i;
+                for (i = -10; i <= 0; i += 1) {
+                    data.push({
+                        x: time + i * 1000,
+                        y: 0
+                    });
+                }
+                return data;
+            }())
+        }]
+    }, function(c) {
+        activeLastPointToolip(c)
+    });
 
+</script>
 <fieldset class="layui-elem-field site-demo-button" style="margin-top: 30px;">
     <legend>功能操作</legend>
     <div>
         <button data-method="confirmTrans" name="01" class="layui-btn layui-btn-normal ">开启</button>
-        <button data-method="confirmTrans" name="02" class="layui-btn layui-btn-normal ">上翻</button>
-        <button data-method="confirmTrans" name="03" class="layui-btn layui-btn-normal ">下翻</button>
+        <button data-method="confirmTrans" id="up" name="02" class="layui-btn layui-btn-normal ">上翻</button>
+        <button data-method="confirmTrans" id="down" name="03" class="layui-btn layui-btn-normal ">下翻</button>
     </div>
 </fieldset>
 <fieldset class="layui-elem-field site-demo-button">
@@ -41,6 +135,24 @@
 
     <script src="../layui-v2.2.5/layui/layui.js" charset="utf-8"></script>
     <!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
+    <script type="text/javascript">
+        $("#up").click(function(){
+            $.post(
+                "../send?order=" + "up",
+                function(result){
+                    alert(result);
+                }
+            )
+        })
+        $("#down").click(function(){
+            $.post(
+                "../send?order=" + "down",
+                function(result){
+                    alert(result);
+                }
+            )
+        })
+    </script>
     <script>
         layui.use('layer', function () { //独立版的layer无需执行这一句
             var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
@@ -51,33 +163,16 @@
                     $button=$(this);
                     var name=$(this).attr("name");
                     var text=$(this).html();
-                    layer.confirm('进行'+text+'操作', {
-                        btn: ['确定', '取消'] //按钮
-                    }, function () {
-
-                        //ajax请求
-                        $.post("/bed_control", { instruction:name},
-                            function(redata){
-                                //返回成功状态
-                                if(redata.status==200){
-                                    layer.msg('已经成功发送请求', {icon: 1});
-                                    if(name=='01'){
-                                        $button.attr({name:"04"});
-                                        $button.html("关闭");
-                                    }else if(name=='04'){
-                                        $button.attr({name:"01"});
-                                        $button.html("开启");
-                                    }
-                                }
-                                else layer.msg('系统内部出现故障', {icon: 2});
-                            });
-
-                    }, function () {
-                        layer.msg('已经取消', {
-                            time: 20000, //20s后自动关闭
-                            btn: ['知道了']
-                        });
-                    });
+                    if(name == '01'){
+                        $button.attr({name:"04"});
+                        $button.html("关闭");
+                        window.location.href = "../StartServer";
+                    }
+                    if(name == '04'){
+                        $button.attr({name:"01"});
+                        $button.html("开启");
+                        window.location.href = "../ShutDown";
+                    }
 
                 }
 

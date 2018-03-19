@@ -19,9 +19,20 @@
     <script src="https://img.hcharts.cn/highcharts/modules/exporting.js"></script>
     <script src="https://img.hcharts.cn/highcharts-plugins/highcharts-zh_CN.js"></script>
     <script src="https://img.hcharts.cn/highcharts/themes/dark-unica.js"></script>
+
 </head>
 <body>
 <div id="container" style="min-width:400px;height:400px"></div>
+<button id="serverOn">开启服务端</button>
+<button id="serverOff">关闭服务端</button>
+<script type="text/javascript">
+    $("#serverOn").click(function(){
+        window.location.href = "../StartServer";
+    })
+    $("#serverOff").click(function(){
+        window.location.href = "../ShutDown";
+    })
+</script>
 <script>
     Highcharts.setOptions({
         global: {
@@ -49,7 +60,7 @@
                             function(result){
                                 //alert(result.charCodeAt());
                                 var x = (new Date()).getTime(), // current time
-                                    y = result.charCodeAt();//这个便是心跳数据
+                                    y = parseFloat(result)//这个便是心跳数据
                                 series.addPoint([x, y], true, true);
                                 activeLastPointToolip(chart)
                             }
@@ -97,10 +108,10 @@
                 var data = [],
                     time = (new Date()).getTime(),
                     i;
-                for (i = -19; i <= 0; i += 1) {
+                for (i = -10; i <= 0; i += 1) {
                     data.push({
                         x: time + i * 1000,
-                        y: Math.random()
+                        y: 0
                     });
                 }
                 return data;

@@ -21,6 +21,9 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
+  <listener>
+    <listener-class>com.hlzj.util.SessionDestroyListener</listener-class>
+  </listener>
 
   <!-- 解决post乱码 -->
   <filter>
