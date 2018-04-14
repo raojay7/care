@@ -145,7 +145,7 @@ public class DataServerServiceImpl implements DataServerService {
                 break;
             case "T":
                 Temperature temperature=new Temperature();
-                temperature.setCtime(new Date());
+                temperature.setCdate(new Date());
                 temperature.setId(1);
                 temperature.setTemperature(Double.parseDouble(trim[2])/10);
                 temperatureMapper.insert(temperature);

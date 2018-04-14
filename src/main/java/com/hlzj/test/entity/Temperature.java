@@ -8,7 +8,7 @@ public class Temperature implements Serializable {
 
     private Double temperature;
 
-    private Date ctime;
+    private Date cdate;
 
     private static final long serialVersionUID = 1L;
 
@@ -28,11 +28,11 @@ public class Temperature implements Serializable {
         this.temperature = temperature;
     }
 
-    public Date getCtime() {
-        return ctime;
+    public Date getCdate() {
+        return cdate;
     }
 
-    public void setCtime(Date ctime) {
-        this.ctime = ctime;
+    public void setCdate(Date cdate) {
+        this.cdate = cdate;
     }
 }

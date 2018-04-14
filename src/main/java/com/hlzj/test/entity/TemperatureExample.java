@@ -225,63 +225,63 @@ public class TemperatureExample {
             return (Criteria) this;
         }
 
-        public Criteria andCtimeIsNull() {
-            addCriterion("ctime is null");
+        public Criteria andCdateIsNull() {
+            addCriterion("cdate is null");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeIsNotNull() {
-            addCriterion("ctime is not null");
+        public Criteria andCdateIsNotNull() {
+            addCriterion("cdate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeEqualTo(Date value) {
-            addCriterion("ctime =", value, "ctime");
+        public Criteria andCdateEqualTo(Date value) {
+            addCriterion("cdate =", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeNotEqualTo(Date value) {
-            addCriterion("ctime <>", value, "ctime");
+        public Criteria andCdateNotEqualTo(Date value) {
+            addCriterion("cdate <>", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeGreaterThan(Date value) {
-            addCriterion("ctime >", value, "ctime");
+        public Criteria andCdateGreaterThan(Date value) {
+            addCriterion("cdate >", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("ctime >=", value, "ctime");
+        public Criteria andCdateGreaterThanOrEqualTo(Date value) {
+            addCriterion("cdate >=", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeLessThan(Date value) {
-            addCriterion("ctime <", value, "ctime");
+        public Criteria andCdateLessThan(Date value) {
+            addCriterion("cdate <", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeLessThanOrEqualTo(Date value) {
-            addCriterion("ctime <=", value, "ctime");
+        public Criteria andCdateLessThanOrEqualTo(Date value) {
+            addCriterion("cdate <=", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeIn(List<Date> values) {
-            addCriterion("ctime in", values, "ctime");
+        public Criteria andCdateIn(List<Date> values) {
+            addCriterion("cdate in", values, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeNotIn(List<Date> values) {
-            addCriterion("ctime not in", values, "ctime");
+        public Criteria andCdateNotIn(List<Date> values) {
+            addCriterion("cdate not in", values, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeBetween(Date value1, Date value2) {
-            addCriterion("ctime between", value1, value2, "ctime");
+        public Criteria andCdateBetween(Date value1, Date value2) {
+            addCriterion("cdate between", value1, value2, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeNotBetween(Date value1, Date value2) {
-            addCriterion("ctime not between", value1, value2, "ctime");
+        public Criteria andCdateNotBetween(Date value1, Date value2) {
+            addCriterion("cdate not between", value1, value2, "cdate");
             return (Criteria) this;
         }
     }

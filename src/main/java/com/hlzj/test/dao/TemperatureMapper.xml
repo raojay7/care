@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.hlzj.test.entity.Temperature" >
     <result column="id" property="id" jdbcType="INTEGER" />
     <result column="temperature" property="temperature" jdbcType="DOUBLE" />
-    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    <result column="cdate" property="cdate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, temperature, ctime
+    id, temperature, cdate
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hlzj.test.entity.TemperatureExample" >
     select
@@ -89,9 +89,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.hlzj.test.entity.Temperature" >
-    insert into t_temperature (id, temperature, ctime
+    insert into t_temperature (id, temperature, cdate
       )
-    values (#{id,jdbcType=INTEGER}, #{temperature,jdbcType=DOUBLE}, #{ctime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=INTEGER}, #{temperature,jdbcType=DOUBLE}, #{cdate,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hlzj.test.entity.Temperature" >
@@ -103,8 +103,8 @@
       <if test="temperature != null" >
         temperature,
       </if>
-      <if test="ctime != null" >
-        ctime,
+      <if test="cdate != null" >
+        cdate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -114,8 +114,8 @@
       <if test="temperature != null" >
         #{temperature,jdbcType=DOUBLE},
       </if>
-      <if test="ctime != null" >
-        #{ctime,jdbcType=TIMESTAMP},
+      <if test="cdate != null" >
+        #{cdate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
@@ -134,8 +134,8 @@
       <if test="record.temperature != null" >
         temperature = #{record.temperature,jdbcType=DOUBLE},
       </if>
-      <if test="record.ctime != null" >
-        ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      <if test="record.cdate != null" >
+        cdate = #{record.cdate,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -146,7 +146,7 @@
     update t_temperature
     set id = #{record.id,jdbcType=INTEGER},
       temperature = #{record.temperature,jdbcType=DOUBLE},
-      ctime = #{record.ctime,jdbcType=TIMESTAMP}
+      cdate = #{record.cdate,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -156,6 +156,6 @@
     select
     <include refid="Base_Column_List" />
     from t_temperature
-    order by ctime desc limit 1
+    order by cdate desc limit 1
   </select>
 </mapper>
