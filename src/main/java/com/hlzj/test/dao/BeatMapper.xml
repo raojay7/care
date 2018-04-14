@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hlzj.test.dao.TemperatureMapper" >
-  <resultMap id="BaseResultMap" type="com.hlzj.test.entity.Temperature" >
+<mapper namespace="com.hlzj.test.dao.BeatMapper" >
+  <resultMap id="BaseResultMap" type="com.hlzj.test.entity.Beat" >
     <result column="id" property="id" jdbcType="INTEGER" />
-    <result column="temperature" property="temperature" jdbcType="DOUBLE" />
-    <result column="ctime" property="ctime" jdbcType="TIMESTAMP" />
+    <result column="beatdata" property="beatdata" jdbcType="VARCHAR" />
+    <result column="cdate" property="cdate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,16 +65,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, temperature, ctime
+    id, beatdata, cdate
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hlzj.test.entity.TemperatureExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hlzj.test.entity.BeatExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from t_temperature
+    from t_beat
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -82,60 +82,60 @@
       order by ${orderByClause}
     </if>
   </select>
-  <delete id="deleteByExample" parameterType="com.hlzj.test.entity.TemperatureExample" >
-    delete from t_temperature
+  <delete id="deleteByExample" parameterType="com.hlzj.test.entity.BeatExample" >
+    delete from t_beat
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hlzj.test.entity.Temperature" >
-    insert into t_temperature (id, temperature, ctime
+  <insert id="insert" parameterType="com.hlzj.test.entity.Beat" >
+    insert into t_beat (id, beatdata, cdate
       )
-    values (#{id,jdbcType=INTEGER}, #{temperature,jdbcType=DOUBLE}, #{ctime,jdbcType=TIMESTAMP}
+    values (#{id,jdbcType=INTEGER}, #{beatdata,jdbcType=VARCHAR}, #{cdate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hlzj.test.entity.Temperature" >
-    insert into t_temperature
+  <insert id="insertSelective" parameterType="com.hlzj.test.entity.Beat" >
+    insert into t_beat
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         id,
       </if>
-      <if test="temperature != null" >
-        temperature,
+      <if test="beatdata != null" >
+        beatdata,
       </if>
-      <if test="ctime != null" >
-        ctime,
+      <if test="cdate != null" >
+        cdate,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="temperature != null" >
-        #{temperature,jdbcType=DOUBLE},
+      <if test="beatdata != null" >
+        #{beatdata,jdbcType=VARCHAR},
       </if>
-      <if test="ctime != null" >
-        #{ctime,jdbcType=TIMESTAMP},
+      <if test="cdate != null" >
+        #{cdate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hlzj.test.entity.TemperatureExample" resultType="java.lang.Integer" >
-    select count(*) from t_temperature
+  <select id="countByExample" parameterType="com.hlzj.test.entity.BeatExample" resultType="java.lang.Integer" >
+    select count(*) from t_beat
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update t_temperature
+    update t_beat
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.temperature != null" >
-        temperature = #{record.temperature,jdbcType=DOUBLE},
+      <if test="record.beatdata != null" >
+        beatdata = #{record.beatdata,jdbcType=VARCHAR},
       </if>
-      <if test="record.ctime != null" >
-        ctime = #{record.ctime,jdbcType=TIMESTAMP},
+      <if test="record.cdate != null" >
+        cdate = #{record.cdate,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -143,10 +143,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update t_temperature
+    update t_beat
     set id = #{record.id,jdbcType=INTEGER},
-      temperature = #{record.temperature,jdbcType=DOUBLE},
-      ctime = #{record.ctime,jdbcType=TIMESTAMP}
+      beatdata = #{record.beatdata,jdbcType=VARCHAR},
+      cdate = #{record.cdate,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -155,7 +155,7 @@
   <select id="selectLatest" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from t_temperature
-    order by ctime desc limit 1
+    from t_beat
+    order by cdate desc limit 1
   </select>
 </mapper>

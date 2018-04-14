@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TemperatureExample {
+public class BeatExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public TemperatureExample() {
+    public BeatExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,123 +165,133 @@ public class TemperatureExample {
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureIsNull() {
-            addCriterion("temperature is null");
+        public Criteria andBeatdataIsNull() {
+            addCriterion("beatdata is null");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureIsNotNull() {
-            addCriterion("temperature is not null");
+        public Criteria andBeatdataIsNotNull() {
+            addCriterion("beatdata is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureEqualTo(Double value) {
-            addCriterion("temperature =", value, "temperature");
+        public Criteria andBeatdataEqualTo(String value) {
+            addCriterion("beatdata =", value, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureNotEqualTo(Double value) {
-            addCriterion("temperature <>", value, "temperature");
+        public Criteria andBeatdataNotEqualTo(String value) {
+            addCriterion("beatdata <>", value, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureGreaterThan(Double value) {
-            addCriterion("temperature >", value, "temperature");
+        public Criteria andBeatdataGreaterThan(String value) {
+            addCriterion("beatdata >", value, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureGreaterThanOrEqualTo(Double value) {
-            addCriterion("temperature >=", value, "temperature");
+        public Criteria andBeatdataGreaterThanOrEqualTo(String value) {
+            addCriterion("beatdata >=", value, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureLessThan(Double value) {
-            addCriterion("temperature <", value, "temperature");
+        public Criteria andBeatdataLessThan(String value) {
+            addCriterion("beatdata <", value, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureLessThanOrEqualTo(Double value) {
-            addCriterion("temperature <=", value, "temperature");
+        public Criteria andBeatdataLessThanOrEqualTo(String value) {
+            addCriterion("beatdata <=", value, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureIn(List<Double> values) {
-            addCriterion("temperature in", values, "temperature");
+        public Criteria andBeatdataLike(String value) {
+            addCriterion("beatdata like", value, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureNotIn(List<Double> values) {
-            addCriterion("temperature not in", values, "temperature");
+        public Criteria andBeatdataNotLike(String value) {
+            addCriterion("beatdata not like", value, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureBetween(Double value1, Double value2) {
-            addCriterion("temperature between", value1, value2, "temperature");
+        public Criteria andBeatdataIn(List<String> values) {
+            addCriterion("beatdata in", values, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andTemperatureNotBetween(Double value1, Double value2) {
-            addCriterion("temperature not between", value1, value2, "temperature");
+        public Criteria andBeatdataNotIn(List<String> values) {
+            addCriterion("beatdata not in", values, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeIsNull() {
-            addCriterion("ctime is null");
+        public Criteria andBeatdataBetween(String value1, String value2) {
+            addCriterion("beatdata between", value1, value2, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeIsNotNull() {
-            addCriterion("ctime is not null");
+        public Criteria andBeatdataNotBetween(String value1, String value2) {
+            addCriterion("beatdata not between", value1, value2, "beatdata");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeEqualTo(Date value) {
-            addCriterion("ctime =", value, "ctime");
+        public Criteria andCdateIsNull() {
+            addCriterion("cdate is null");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeNotEqualTo(Date value) {
-            addCriterion("ctime <>", value, "ctime");
+        public Criteria andCdateIsNotNull() {
+            addCriterion("cdate is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeGreaterThan(Date value) {
-            addCriterion("ctime >", value, "ctime");
+        public Criteria andCdateEqualTo(Date value) {
+            addCriterion("cdate =", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("ctime >=", value, "ctime");
+        public Criteria andCdateNotEqualTo(Date value) {
+            addCriterion("cdate <>", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeLessThan(Date value) {
-            addCriterion("ctime <", value, "ctime");
+        public Criteria andCdateGreaterThan(Date value) {
+            addCriterion("cdate >", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeLessThanOrEqualTo(Date value) {
-            addCriterion("ctime <=", value, "ctime");
+        public Criteria andCdateGreaterThanOrEqualTo(Date value) {
+            addCriterion("cdate >=", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeIn(List<Date> values) {
-            addCriterion("ctime in", values, "ctime");
+        public Criteria andCdateLessThan(Date value) {
+            addCriterion("cdate <", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeNotIn(List<Date> values) {
-            addCriterion("ctime not in", values, "ctime");
+        public Criteria andCdateLessThanOrEqualTo(Date value) {
+            addCriterion("cdate <=", value, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeBetween(Date value1, Date value2) {
-            addCriterion("ctime between", value1, value2, "ctime");
+        public Criteria andCdateIn(List<Date> values) {
+            addCriterion("cdate in", values, "cdate");
             return (Criteria) this;
         }
 
-        public Criteria andCtimeNotBetween(Date value1, Date value2) {
-            addCriterion("ctime not between", value1, value2, "ctime");
+        public Criteria andCdateNotIn(List<Date> values) {
+            addCriterion("cdate not in", values, "cdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCdateBetween(Date value1, Date value2) {
+            addCriterion("cdate between", value1, value2, "cdate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCdateNotBetween(Date value1, Date value2) {
+            addCriterion("cdate not between", value1, value2, "cdate");
             return (Criteria) this;
         }
     }

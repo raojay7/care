@@ -2,7 +2,6 @@ package com.hlzj.test.service.imp;
 
 import com.hlzj.test.dao.TemperatureMapper;
 import com.hlzj.test.entity.Temperature;
-import com.hlzj.test.entity.TemperatureExample;
 import com.hlzj.test.service.TemperatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,7 @@ public class TemperatureServiceImpl implements TemperatureService{
         Temperature record = new Temperature();
         record.setId(id);
         record.setTemperature(temperature);
-        record.setCdate(cdate);
+        record.setCtime(cdate);
         temperatureMapper.insert(record);
     }
 
@@ -33,7 +32,7 @@ public class TemperatureServiceImpl implements TemperatureService{
     @Override
     public void dataInsert(int id, String symbol, String realData){
         Temperature record = new Temperature();
-        record.setCdate(new Date());
+        record.setCtime(new Date());
         record.setId(id);
         switch (symbol){
             case "T01":

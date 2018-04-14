@@ -1,11 +1,12 @@
 package com.hlzj.DataServer.service.imp;
 
 import com.hlzj.DataServer.service.DataServerService;
+import com.hlzj.test.dao.BeatMapper;
 import com.hlzj.test.dao.TemperatureMapper;
+import com.hlzj.test.entity.Beat;
 import com.hlzj.test.entity.Temperature;
 import com.hlzj.util.ServerSocket;
 import com.hlzj.util.TrimUtil;
-import com.hlzj.util.imp.MultipleThreadServer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,8 @@ import java.util.List;
 public class DataServerServiceImpl implements DataServerService {
     @Autowired
     private TemperatureMapper temperatureMapper;
+    @Autowired
+    private BeatMapper beatMapper;
 
     private java.net.ServerSocket server = null;
     private Socket socket = null;
@@ -85,36 +88,21 @@ public class DataServerServiceImpl implements DataServerService {
         new Thread(new Runnable() {
             public void run() {
                 InputStream cin = null;
-                InputStreamReader in = null;
+                BufferedReader br=null;
                 BufferedOutputStream out = null;
                 try {
                     cin = client.getInputStream();
-                    in = new InputStreamReader(cin);
+                    br=new BufferedReader(new InputStreamReader(cin));
                     char[] text;
                     out = new BufferedOutputStream(client.getOutputStream());
 
                     while (true) {
                         try {
                             if(client == null)break;
-                            text = new char[1024];
-                            in.read(text);
-                            System.out.println("from client:" + String.valueOf(text));
-                            String[] trim = TrimUtil.dataTrim(text);
-                            Temperature record = new Temperature();
-                            record.setCdate(new Date());
-                            record.setId(1);
-                            switch (trim[0]){
-                                case "T01":
-                                    record.setTemperature(Double.valueOf(trim[1]));
-                                    temperatureMapper.insert(record);
-                                    break;
-                            }
-                            //System.out.println("请输入要发送的指令：");
-                            //invoke2(client);
-                            /*BufferedOutputStream out2 = new BufferedOutputStream(client.getOutputStream());
-                            out2.write("PF4".getBytes("UTF-8"));
-                            out2.flush();*/
-                            if (String.valueOf(text).equals("bye")) {
+                            String str=br.readLine();
+                            insertToDatabase(str);
+
+                            if (String.valueOf(str).equals("bye")) {
                                 break;
                             }
                         }catch (SocketException e){
@@ -128,7 +116,8 @@ public class DataServerServiceImpl implements DataServerService {
                 }
                 finally {
                     try {
-                        in.close();
+//                        in.close();
+                        br.close();
                     } catch (Exception e) {}
                     try {
                         out.close();
@@ -139,6 +128,29 @@ public class DataServerServiceImpl implements DataServerService {
                 }
             }
         }).start();
+
+    }
+
+
+    private void insertToDatabase(String str){
+        System.out.println("from client:" + String.valueOf(str)+" "+new Date());
+        String[] trim = TrimUtil.dataTrim(str);
+        switch (trim[1]){
+            case "H":
+                Beat record=new Beat();
+                record.setId(1);
+                record.setCdate(new Date());
+                record.setBeatdata(trim[2]);
+                beatMapper.insert(record);
+                break;
+            case "T":
+                Temperature temperature=new Temperature();
+                temperature.setCtime(new Date());
+                temperature.setId(1);
+                temperature.setTemperature(Double.parseDouble(trim[2])/10);
+                temperatureMapper.insert(temperature);
+                break;
+        }
 
     }
 }
