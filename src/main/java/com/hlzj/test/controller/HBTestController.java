@@ -37,7 +37,7 @@ public class HBTestController {
                 for (String every:split){
                     writer.write(every);
                     writer.flush();
-                    r.delay(20);
+                    r.delay(10);
                 }
 
             }else

@@ -16,7 +16,7 @@ public class TestService
     public void test(){
         Temperature temperature = new Temperature();
         temperature.setId((int)(Math.random()*100));
-        temperature.setCtime(new Date());
+        temperature.setCdate(new Date());
         temperature.setTemperature((Math.random()*500));
         temperatureMapper.insert(temperature);
         System.out.println("service test");

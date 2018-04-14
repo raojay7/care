@@ -18,7 +18,7 @@ public class TemperatureServiceImpl implements TemperatureService{
         Temperature record = new Temperature();
         record.setId(id);
         record.setTemperature(temperature);
-        record.setCtime(cdate);
+        record.setCdate(cdate);
         temperatureMapper.insert(record);
     }
 
@@ -32,7 +32,7 @@ public class TemperatureServiceImpl implements TemperatureService{
     @Override
     public void dataInsert(int id, String symbol, String realData){
         Temperature record = new Temperature();
-        record.setCtime(new Date());
+        record.setCdate(new Date());
         record.setId(id);
         switch (symbol){
             case "T01":
