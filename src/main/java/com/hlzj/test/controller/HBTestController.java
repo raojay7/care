@@ -17,7 +17,7 @@ public class HBTestController {
     private TemperatureService temperatureService;
 
     @Autowired
-    BeatService beatService;
+    private BeatService beatService;
     @RequestMapping("hb")
     public String getHeartBeat(){
         return "test";
@@ -28,17 +28,19 @@ public class HBTestController {
         String temperatureStatus = (String)session.getAttribute("temperature");
         if(temperatureStatus != null)
             if(temperatureStatus.equals("on")) {
+//                System.out.println("进入beat方法");
                 String str=beatService.getLatest();
-                if(str==null)return;
-                response.getWriter().write(str);
+                if(str==null)return;//response.getWriter().write(str);
                 String[] split = str.split("#");
-                Robot r   =   new   Robot();
+                //Robot r   =   new   Robot();
                 Writer writer=response.getWriter();
-                for (String every:split){
+                /*for (String every:split){
                     writer.write(every);
                     writer.flush();
                     r.delay(10);
-                }
+                }*/
+                writer.write(split[0]);
+                writer.flush();
 
             }else
                 response.getWriter().write("0.0");

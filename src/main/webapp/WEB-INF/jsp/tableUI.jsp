@@ -119,17 +119,12 @@ Tips：为了更清晰演示，每触发下述一个例子之前，都会关闭�
                                 function (result) {
                                     //alert(result.charCodeAt());
                                     var x = (new Date()).getTime(), // current time
-                                        y = parseFloat(result) //这个便是心跳数据
-                                    /*if(y == 37.6){
-                                        $("#circle1").css("background-color","#FF0000");
-                                    }else{
-
-                                    }*/
+                                        y = parseInt(result);//这个便是心跳数据
                                     series.addPoint([x, y], true, true);
                                     activeLastPointToolip(chart)
                                 }
                             )
-                        }, 100);
+                        }, 20);
                     }
                 }
             },
@@ -142,12 +137,12 @@ Tips：为了更清晰演示，每触发下述一个例子之前，都会关闭�
                 gridLineWidth: 1
             },
             yAxis: {
+                min:3500,
+                max:8500,
                 title: {
                     text: '值'
                 },
                 plotLines: [{
-                    min:3500,
-                    max:8500,
                     value: 0,
                     width: 1,
                     color: '#FFFFFF'
@@ -174,7 +169,7 @@ Tips：为了更清晰演示，每触发下述一个例子之前，都会关闭�
                     var data = [],
                         time = (new Date()).getTime(),
                         i;
-                    for (i = -50; i <= 0; i += 1) {
+                    for (i = -100; i <= 0; i += 1) {
                         data.push({
                             x: time + i * 1000,
                             y: 0
