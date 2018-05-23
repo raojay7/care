@@ -9,13 +9,13 @@ public interface TemperatureService {
      * @param temperature 单次温度数据
      * @param cdate 单次接收时刻
      */
-    public void insert(int id, double temperature, Date cdate);
+    public void insert(int id, Double temperature, Date cdate);
 
     /**
      *
      * @return 返回最新的一次温度数据
      */
-    public double getLatest();
+    public Double getLatest();
 
     /**
      * 插入相应表

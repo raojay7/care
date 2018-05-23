@@ -16,7 +16,7 @@ public class DataServerController {
 
     @RequestMapping("StartServer")
     public String startServer(HttpSession session){
-        session.setAttribute("temperature", "on");
+        session.setAttribute("data", "on");
         dataServerService.startListening(46666, session);
         return "tableUI";
     }

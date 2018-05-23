@@ -2,8 +2,10 @@ package com.hlzj.DataServer.service.imp;
 
 import com.hlzj.DataServer.service.DataServerService;
 import com.hlzj.test.dao.BeatMapper;
+import com.hlzj.test.dao.OxygenMapper;
 import com.hlzj.test.dao.TemperatureMapper;
 import com.hlzj.test.entity.Beat;
+import com.hlzj.test.entity.Oxygen;
 import com.hlzj.test.entity.Temperature;
 import com.hlzj.util.ServerSocket;
 import com.hlzj.util.TrimUtil;
@@ -24,6 +26,9 @@ public class DataServerServiceImpl implements DataServerService {
     private TemperatureMapper temperatureMapper;
     @Autowired
     private BeatMapper beatMapper;
+
+    @Autowired
+    private OxygenMapper oxygenMapper;
 
     private java.net.ServerSocket server = null;
     private Socket socket = null;
@@ -149,6 +154,13 @@ public class DataServerServiceImpl implements DataServerService {
                 temperature.setId(1);
                 temperature.setTemperature(Double.parseDouble(trim[2])/10);
                 temperatureMapper.insert(temperature);
+                break;
+            case "O":
+                Oxygen oxygen=new Oxygen();
+                oxygen.setCdate(new Date());
+                oxygen.setId(1);
+                oxygen.setOxygendata(Double.parseDouble(trim[2])/10);
+                oxygenMapper.insert(oxygen);
                 break;
         }
 

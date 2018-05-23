@@ -14,7 +14,7 @@ public class TemperatureServiceImpl implements TemperatureService{
     TemperatureMapper temperatureMapper;
 
     @Override
-    public void insert(int id, double temperature, Date cdate) {
+    public void insert(int id, Double temperature, Date cdate) {
         Temperature record = new Temperature();
         record.setId(id);
         record.setTemperature(temperature);
@@ -23,7 +23,7 @@ public class TemperatureServiceImpl implements TemperatureService{
     }
 
     @Override
-    public double getLatest() {
+    public Double getLatest() {
         Temperature temperature = temperatureMapper.selectLatest();
         if(temperature != null)
             return temperature.getTemperature();
