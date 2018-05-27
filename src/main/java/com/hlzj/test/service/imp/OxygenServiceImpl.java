@@ -5,9 +5,10 @@ import com.hlzj.test.entity.Oxygen;
 import com.hlzj.test.entity.Temperature;
 import com.hlzj.test.service.OxygenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
-
+@Service
 public class OxygenServiceImpl implements OxygenService
 {
     @Autowired

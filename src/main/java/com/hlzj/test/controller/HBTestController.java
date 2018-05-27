@@ -5,6 +5,7 @@ import com.hlzj.test.service.OxygenService;
 import com.hlzj.test.service.TemperatureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
@@ -21,10 +22,16 @@ public class HBTestController {
 
     @Autowired
     private OxygenService oxygenService;
+
+    @RequestMapping("/{path}")
+    public String showPath(@PathVariable String path){
+               return path;
+          }
     @RequestMapping("hb")
     public String getHeartBeat(){
         return "test";
     }
+
 
     @RequestMapping("Beat")
     public void getBeat(HttpSession session, HttpServletResponse response) throws Exception {
